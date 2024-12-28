@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        div.gallery img {
+            width: 95%;
+            height: auto;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+            font-size: large;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 800;
+        }
+
+        .responsive {
+            padding: 0 6px;
+            float: left;
+            width: 24.99999%;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .responsive {
+                width: 49.99999%;
+                margin: 6px 0;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            .responsive {
+                width: 100%;
+            }
+        }
+
+        img {
+            border-radius: 30px;
+        }
+
+        /* Header/Navbar */
+        body {
+            background-color: #093c65;
+            color: #ffffff;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            font-size: 30px;
+            text-align: center;
+            margin-top: -60px;
+        }
+
+        .flex-item-left {
+            text-align: left;
+            margin: 60px;
+            padding: 10px;
+            margin-top: 100px;
+            flex: 50%;
+        }
+
+        .flex-item-right {
+            padding: 10px;
+            flex: 50%;
+        }
+
+        /* Responsive layout - makes a one column-layout instead of two-column layout */
+        @media (max-width: 800px) {
+            .flex-container {
+                flex-direction: column;
+            }
+        }
+
+        p {
+            font-size: 20px;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-weight: 450;
+            color: #ffffff;
+        }
+
+        .keyword {
+            color: #4D5BCE;
+        }
+
+        .variable {
+            color: #43D9AD;
+        }
+
+        .string {
+            color: #E99287;
+            text-decoration: underline;
+        }
+
+        .equal {
+            color: #ffffff;
+        }
+
+        .code {
+            font-size: 18px;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 500;
+            color: #4D5BCE;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 400;
+            color: #607B96;
+        }
+
+        .nav-bar {
+            width: 96%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            position: fixed;
+            background-color: #011627;
+            border: 2px solid white;
+            padding: 5px;
+            border-radius: 50px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        header {
+            position: fixed;
+            top: 20px;
+        }
+
+        .logo {
+            font-family: "Anta", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: x-large;
+        }
+
+        .logo:hover {
+            cursor: pointer;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu li {
+            padding-left: 30px;
+        }
+
+        .menu li a {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--color1);
+            text-align: center;
+            transition: 0.15s ease-in-out;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .menu li a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color1);
+            transition: 0.15s ease-in-out;
+        }
+
+        .menu li a:hover:after {
+            width: 100%;
+        }
+
+        .open-menu,
+        .close-menu {
+            position: absolute;
+            color: var(--color1);
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: none;
+        }
+
+        .open-menu {
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        .close-menu {
+            top: 20px;
+            right: 20px;
+        }
+
+        #check {
+            display: none;
+        }
+
+        .hamburger {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        @media(max-width: 610px) {
+            .menu {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                right: 100%;
+                z-index: 100;
+                background-color: #093c65;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .menu li {
+                margin-top: 40px;
+            }
+
+            .menu li a {
+                padding: 10px;
+            }
+
+            .open-menu,
+            .close-menu {
+                display: block;
+                z-index: 1000;
+            }
+
+            #check:checked~.menu {
+                right: 0;
+            }
+
+            #check:checked~.open-menu .hamburger div:nth-child(1) {
+                transform: rotate(-45deg) translate(-7px, 6px);
+            }
+
+            #check:checked~.open-menu .hamburger div:nth-child(2) {
+                opacity: 0;
+            }
+
+            #check:checked~.open-menu .hamburger div:nth-child(3) {
+                transform: rotate(45deg) translate(-7px, -6px);
+            }
+        }
+        .hall{
+            margin-top: 130px;
+        }
+        iframe{
+            width: 100%;
+            border-radius: 20px;
+            height: 50%;
+        }
+.active{
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 20px;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 10px;
+    color: #093c65;
+}
+.unactive{
+    background-color: #011627;
+    padding: 5px;
+    border-radius: 20px;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 10px;
+    color: #ffffff;
+}
+a{
+    text-decoration: none;
+}
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class='nav-bar'>
+                <li class='logo'><img src="logo.svg" alt="" srcset="" width="80px"></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="hall">   
+        <iframe src="https://short.ink/XA_0IhgjZ" frameborder="0" scrolling="0" allowfullscreen></iframe>
+    <div class="nodes">
+        <a href="episode-1.html">
+            <div class="unactive">
+                Episode-01
+            </div>
+        </a>
+        <a href="episode-2.html">
+            <div class="unactive">
+                Episode-02
+            </div>
+        </a>
+        <a href="episode-3.html">
+            <div class="unactive">
+                Episode-03
+            </div>
+        </a>
+        <a href="episode-4.html">
+            <div class="unactive">
+                Episode-04
+            </div>
+        </a>
+        <a href="episode-5.html">
+            <div class="unactive">
+                Episode-05
+            </div>  
+        </a>
+        <a href="episode-6.html">      
+            <div class="unactive">
+                Episode-06
+            </div>
+        </a>
+        <a href="episode-7.html">
+            <div class="unactive">
+                Episode-07
+            </div>
+        </a>
+        <a href="episode-8.html">
+            <div class="unactive">
+                Episode-08
+            </div>
+        </a>
+        <a href="episode-9.html">
+            <div class="unactive">
+                Episode-09
+            </div>
+        </a>
+        <a href="episode-10.html">
+            <div class="unactive">
+                Episode-10
+            </div>
+        </a>
+        <a href="episode-11.html">
+            <div class="unactive">
+                Episode-11
+            </div>  
+        </a>
+        <a href="episode-12.html">      
+            <div class="unactive">
+                Episode-12
+            </div>
+        </a>
+        <a href="episode-13.html">
+            <div class="unactive">
+                Episode-13
+            </div>
+        </a>
+        <a href="episode-14.html">
+            <div class="unactive">
+                Episode-14
+            </div>
+        </a>
+        <a href="episode-15.html">
+            <div class="unactive">
+                Episode-15
+            </div>
+        </a>
+        <a href="episode-16.html">
+            <div class="unactive">
+                Episode-16
+            </div>
+        </a>
+        <a href="episode-17.html">
+            <div class="unactive">
+                Episode-17
+            </div>  
+        </a>
+        <a href="episode-18.html">      
+            <div class="unactive">
+                Episode-18
+            </div>
+        </a>
+        <a href="episode-19.html">
+            <div class="unactive">
+                Episode-19
+            </div>
+        </a>
+        <a href="episode-20.html">
+            <div class="unactive">
+                Episode-20
+            </div>
+        </a>
+        <a href="episode-21.html">
+            <div class="unactive">
+                Episode-21
+            </div>
+        </a>
+        <a href="episode-22.html">
+            <div class="unactive">
+                Episode-22
+            </div>
+        </a>
+        <a href="episode-23.html">
+            <div class="unactive">
+                Episode-23
+            </div>  
+        </a>
+        <a href="episode-24.html">      
+            <div class="unactive">
+                Episode-24
+            </div>
+        </a>
+        <a href="episode-25.html">
+            <div class="unactive">
+                Episode-25
+            </div>
+        </a>
+        <a href="episode-26.html">
+            <div class="unactive">
+                Episode-26
+            </div>
+        </a>
+        <a href="episode-27.html">
+            <div class="unactive">
+                Episode-27
+            </div>
+        </a>
+        <a href="episode-28.html">
+            <div class="unactive">
+                Episode-28
+            </div>
+        </a>
+        <a href="episode-29.html">
+            <div class="unactive">
+                Episode-29
+            </div>  
+        </a>
+        <a href="episode-30.html">      
+            <div class="unactive">
+                Episode-30
+            </div>
+        </a>
+        <a href="episode-31.html">
+            <div class="unactive">
+                Episode-31
+            </div>
+        </a>
+        <a href="episode-32.html">
+            <div class="unactive">
+                Episode-32
+            </div>
+        </a>
+        <a href="episode-33.html">
+            <div class="unactive">
+                Episode-33
+            </div>
+        </a>
+        <a href="episode-34.html">
+            <div class="unactive">
+                Episode-34
+            </div>
+        </a>
+        <a href="episode-35.html">
+            <div class="unactive">
+                Episode-35
+            </div>  
+        </a>
+        <a href="episode-36.html">      
+            <div class="unactive">
+                Episode-36
+            </div>
+        </a>
+        <a href="episode-37.html">      
+            <div class="unactive">
+                Episode-37
+            </div>
+        </a>
+        <a href="episode-38.html">
+            <div class="unactive">
+                Episode-38
+            </div>
+        </a>
+        <a href="episode-39.html">
+            <div class="unactive">
+                Episode-39
+            </div>
+        </a>
+        <a href="episode-40.html">
+            <div class="unactive">
+                Episode-40
+            </div>
+        </a>
+        <a href="episode-41.html">
+            <div class="active">
+                Episode-41
+            </div>
+        </a>
+        <a href="episode-42.html">
+            <div class="unactive">
+                Episode-42
+            </div>  
+        </a>
+        <a href="episode-43.html">      
+            <div class="unactive">
+                Episode-43
+            </div>
+        </a>
+    </div>
+    </div>
+</body>
+</html>
